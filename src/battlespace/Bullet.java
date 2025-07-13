@@ -10,7 +10,7 @@ public class Bullet {
     }
 
     public void moveUp() {
-        y--;
+        y--; // Se mueve una casilla por frame
     }
 
     public int getX() {
