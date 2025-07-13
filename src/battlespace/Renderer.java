@@ -10,13 +10,13 @@ public class Renderer {
 
     public static void renderGame(char[][] board, int score, int lives, int width) {
         if (!gameStarted) {
-            // Configuración inicial
+
             clearConsole();
             System.out.print(ANSI_HIDE_CURSOR);
             gameStarted = true;
         }
 
-        // Crear la pantalla completa en memoria
+
         StringBuilder screen = new StringBuilder();
 
         // Línea 1: Score y vidas
@@ -24,27 +24,27 @@ public class Renderer {
         for (int i = 0; i < lives; i++) {
             screen.append("♥");
         }
-        // Rellenar con espacios para limpiar cualquier residuo
+
         for (int i = 0; i < 20; i++) {
             screen.append(" ");
         }
         screen.append("\n");
 
-        // Línea 2: Borde superior
+
         screen.append("-".repeat(width)).append("\n");
 
-        // Líneas 3-22: Tablero de juego
+
         for (char[] row : board) {
             screen.append(new String(row)).append("\n");
         }
 
-        // Línea 23: Borde inferior
+
         screen.append("-".repeat(width)).append("\n");
 
-        // Línea 24: Controles
+
         screen.append("Use A/D to move, SPACE to fire. Press Q to quit.\n");
 
-        // Mover cursor al inicio y dibujar todo de una vez
+
         System.out.print("\033[H");
         System.out.print(screen.toString());
         System.out.flush();

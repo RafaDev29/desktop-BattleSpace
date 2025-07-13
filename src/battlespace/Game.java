@@ -44,7 +44,7 @@ public class Game {
     }
 
     public void start() {
-        // Renderizar una vez al inicio
+
         render();
 
         long lastTime = System.currentTimeMillis();
@@ -60,7 +60,7 @@ public class Game {
                 lastTime = currentTime;
             }
 
-            // Pequeña pausa para no consumir 100% CPU
+
             try {
                 Thread.sleep(10);
             } catch (InterruptedException e) {
@@ -76,12 +76,12 @@ public class Game {
     private void update() {
         boolean needsRender = false;
 
-        // Reducir cooldown de disparo
+
         if (bulletFireCooldown > 0) {
             bulletFireCooldown--;
         }
 
-        // Mover balas LENTAMENTE
+
         bulletMoveCounter++;
         if (bulletMoveCounter >= bulletMoveInterval) {
             Iterator<Bullet> it = bullets.iterator();
@@ -92,7 +92,7 @@ public class Game {
                 if (b.getY() < 0) {
                     it.remove();
                 } else {
-                    // Verificar colisión con enemigos
+
                     Iterator<Enemy> ei = enemies.iterator();
                     while (ei.hasNext()) {
                         Enemy e = ei.next();
@@ -109,7 +109,7 @@ public class Game {
             bulletMoveCounter = 0;
         }
 
-        // Verificar colisión enemigos con jugador
+
         for (Enemy e : enemies) {
             if (e.getY() >= player.getY()) {
                 lives--;
@@ -125,11 +125,11 @@ public class Game {
             }
         }
 
-        // Verificar si no quedan enemigos
+
         if (enemies.isEmpty()) {
             spawnEnemies();
             needsRender = true;
-            // Aumentar dificultad reduciendo el intervalo
+
             if (enemyMoveInterval > 60) {
                 enemyMoveInterval -= 3;
             }
@@ -140,7 +140,7 @@ public class Game {
 
         if (lives <= 0) running = false;
 
-        // Movimiento automático de enemigos MUY LENTO
+
         enemyMoveCounter++;
         if (enemyMoveCounter >= enemyMoveInterval) {
             for (Enemy e : enemies) {
@@ -150,7 +150,7 @@ public class Game {
             needsRender = true;
         }
 
-        // Solo renderizar si algo cambió
+
         if (needsRender) {
             render();
         }
@@ -159,10 +159,10 @@ public class Game {
     private void render() {
         clearBoard();
 
-        // Dibujar jugador
+
         board[player.getY()][player.getX()] = '^';
 
-        // Dibujar enemigos
+
         for (Enemy e : enemies) {
             if (e.getY() >= 0 && e.getY() < HEIGHT)
                 board[e.getY()][e.getX()] = '@';
@@ -194,7 +194,6 @@ public class Game {
         }
     }
 
-    // Métodos para InputHandler
     public void movePlayerLeft() {
         player.move(-1, WIDTH);
         render(); // Solo renderizar cuando el jugador se mueva
